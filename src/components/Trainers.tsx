@@ -1,18 +1,20 @@
 import trainer1 from "@/assets/trainer-1.jpg";
 import trainer2 from "@/assets/trainer-2.jpg";
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 const trainers = [
   {
     name: "Marcus Johnson",
     role: "Strength Coach",
     image: trainer1,
+    rating: 4.8,
     specialties: ["Powerlifting", "Bodybuilding", "Nutrition"],
   },
   {
     name: "Sarah Martinez",
     role: "Fitness Expert",
     image: trainer2,
+    rating: 4.6,
     specialties: ["HIIT", "Yoga", "Wellness"],
   },
 ];
@@ -46,7 +48,16 @@ export const Trainers = () => {
               </div>
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-1">{trainer.name}</h3>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-2xl font-bold flex items-center gap-2">
+                    {trainer.name}
+                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-foreground/90">
+                      <Star size={14} className="text-yellow-500/90" />
+                      {trainer.rating?.toFixed(1)}
+                    </span>
+                  </h3>
+                  <ArrowRight size={18} className="text-primary" />
+                </div>
                 <p className="text-primary font-semibold mb-4">{trainer.role}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -60,26 +71,7 @@ export const Trainers = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-3">
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    <Instagram size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    <Twitter size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    <Linkedin size={18} />
-                  </a>
-                </div>
+                {/* Social buttons removed per request */}
               </div>
             </div>
           ))}

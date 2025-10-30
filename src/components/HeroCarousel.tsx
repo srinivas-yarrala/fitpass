@@ -1,8 +1,10 @@
 import { Button } from "./ui/button";
-import { ArrowRight, PlayCircle, ChevronLeft, ChevronRight, MapPin, QrCode, LineChart, Search } from "lucide-react";
+import { ArrowRight, PlayCircle, ChevronLeft, ChevronRight, MapPin, QrCode, LineChart, Search, Filter } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-fitness.jpg";
+import heroVideo from "@/assets/hero.mp4";
 import { useState, useEffect } from "react";
 
 const slides = [
@@ -58,7 +60,7 @@ export const HeroCarousel = () => {
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 2000);
+    }, 1200);
     return () => window.clearInterval(intervalId);
   }, []);
 
@@ -103,53 +105,68 @@ export const HeroCarousel = () => {
   };
 
   return (
-    <section id="home" className="relative pt-20">
+    <section id="home" className="relative pt-0 md:pt-20 -mt-16 md:mt-0">
       {/* Mobile-first full-bleed hero with overlay */}
       <div className="md:hidden">
-        <div className="relative w-full min-h-[80vh]">
-          <img src={slide.image} alt={slide.title} className="absolute inset-0 w-full h-full object-cover" />
+        <div className="relative w-full min-h-[90vh]">
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={slide.image}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
 
-          {/* Floating content card on mobile (content-width) */}
-          <div className="absolute top-6 left-0 right-0 z-10">
-            <div className="px-4">
-              <div className="inline-flex flex-col gap-2">
-                <div
-                  className="inline-flex items-center gap-3 rounded-full w-max animate-in fade-in slide-in-from-left bg-card/80 backdrop-blur-md border border-border px-5 py-3 shadow-xl shadow-black/10 ring-1 ring-primary/10"
-                  style={{ animationDuration: `${Math.max(220, 700 - currentSlide * 200)}ms` }}
-                >
-                  <div className="w-10 h-10 rounded-full bg-primary/15 text-primary flex items-center justify-center">
-                    {(() => { const Icon = slide.icon; return <Icon size={18} />; })()}
-                  </div>
-                  <div className="text-base font-semibold leading-snug">
-                    {slide.title}
-                  </div>
-                </div>
-                {/* Location chips removed for marketing-focused landing */}
-              </div>
-            </div>
-          </div>
+          {/* Headings removed on mobile per request */}
 
           {/* Subheading removed per request */}
 
           {/* Navigation Controls removed per request */}
 
-          {/* Centered search overlay moved slightly down */}
-          <div className="absolute left-0 right-0 top-[62%] -translate-y-1/2 z-10">
+          {/* Centered search overlay moved slightly further down */}
+          <div className="absolute left-0 right-0 top-[70%] -translate-y-1/2 z-10">
             <div className="px-4 flex justify-center">
               <div className="relative w-full max-w-xs md:max-w-sm">
                 <Input
                   value={isFocused || userInput.length > 0 ? userInput : `${typedText}${caretVisible ? "|" : ""}`}
                   aria-label="Search gyms and workouts"
                   autoComplete="off"
-                  className="h-12 pl-4 pr-12 bg-background/60 backdrop-blur-md border-border rounded-full"
+                  className="h-12 pl-10 pr-12 bg-background/60 backdrop-blur-md border-border rounded-full"
                   onChange={(e) => setUserInput(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                 />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
+                {/* Left search icon without background */}
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   <Search size={16} />
                 </div>
+                {/* Vertical divider after search icon */}
+                <div className="absolute left-8 top-1/2 -translate-y-1/2 h-6 w-px bg-border" />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      aria-label="Open filters"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center active:scale-95"
+                    >
+                      <Filter size={14} />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent align="end" sideOffset={8} className="w-56 p-2">
+                    <div className="text-xs font-semibold text-muted-foreground px-2 py-1">Quick filters</div>
+                    <div className="grid grid-cols-2 gap-2 p-2">
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">Open now</button>
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">Near me</button>
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">Has showers</button>
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">Trainers</button>
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">Under ₹199</button>
+                      <button className="text-xs px-2 py-1.5 rounded-full border hover:bg-muted text-foreground">24x7</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
           </div>
@@ -160,37 +177,8 @@ export const HeroCarousel = () => {
       <div className="hidden md:block">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-            {/* Left Content */}
-            <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
-
-              {/* Left column content is intentionally minimal on mobile and retained here for desktop */}
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                {slide.title}
-                <span className="text-primary">.</span>
-              </h1>
-
-              <p className="text-lg text-muted-foreground max-w-md">
-                {slide.description}
-              </p>
-
-              {/* Desktop inline search removed to avoid overlap; using centered overlay */}
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border">
-                <div>
-                  <div className="text-3xl font-bold text-primary">50+</div>
-                  <div className="text-sm text-muted-foreground mt-1">Partner gyms</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">10K+</div>
-                  <div className="text-sm text-muted-foreground mt-1">Check-ins</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-primary">5-day</div>
-                  <div className="text-sm text-muted-foreground mt-1">Avg streak</div>
-                </div>
-              </div>
-            </div>
+            {/* Left Content removed per request (no headings on desktop) */}
+            <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700" />
 
             {/* Right Image */}
             <div className="relative animate-in fade-in slide-in-from-right duration-700 delay-200">
@@ -205,20 +193,7 @@ export const HeroCarousel = () => {
 
               {/* Navigation Controls removed per request */}
 
-              {/* Floating Card (content-width) */}
-              <div className="absolute top-8 left-8">
-                <div
-                  className="inline-flex items-center gap-3 rounded-full w-max animate-in fade-in slide-in-from-left bg-card/80 backdrop-blur-sm border border-border px-6 py-3 shadow-xl shadow-black/10 ring-1 ring-primary/10"
-                  style={{ animationDuration: `${Math.max(220, 700 - currentSlide * 200)}ms` }}
-                >
-                    <div className="w-12 h-12 bg-primary/15 rounded-full flex items-center justify-center text-primary">
-                      {(() => { const Icon = slide.icon; return <Icon size={22} />; })()}
-                    </div>
-                    <div className="text-base font-semibold leading-snug">
-                      {slide.title}
-                    </div>
-                </div>
-              </div>
+              {/* Floating Card removed per request */}
 
               {/* Subheading removed on desktop per request */}
             </div>

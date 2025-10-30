@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const WidePromo = () => {
   return (
-    <section className="py-6">
+    <section className="py-8">
       <div className="container mx-auto px-4 lg:px-8">
         <Card className="relative overflow-hidden rounded-2xl p-6 md:p-8 bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border-primary/20">
           <div className="max-w-xl">

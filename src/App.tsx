@@ -11,6 +11,7 @@ import Passes from "./pages/Passes";
 import CheckIn from "./pages/CheckIn";
 import WorkoutLogger from "./pages/WorkoutLogger";
 import Progress from "./pages/Progress";
+import DietBot from "./pages/DietBot";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/check-in" element={<CheckIn />} />
           <Route path="/log" element={<WorkoutLogger />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/diet-bot" element={<DietBot />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

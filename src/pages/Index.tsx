@@ -12,9 +12,10 @@ import GymRow from "@/components/GymRow";
 import OffersRow from "@/components/OffersRow";
 import PassesRow from "@/components/PassesRow";
 import CategoriesRow from "@/components/CategoriesRow";
-import ReviewsRow from "@/components/ReviewsRow";
-import BannerStrip from "@/components/BannerStrip";
+// import ReviewsRow from "@/components/ReviewsRow";
 import WidePromo from "@/components/WidePromo";
+import FeaturedGyms from "@/components/FeaturedGyms";
+import HireTrainer from "@/components/HireTrainer";
 // Removed profile-like elements from landing for a marketing-first layout
 
 const Index = () => {
@@ -25,13 +26,13 @@ const Index = () => {
       <ScrollingTicker />
       <AboutSection />
       {/* Swiggy-style horizontal sections and banners */}
-      <BannerStrip />
-      <OffersRow />
       <GymRow />
-      <WidePromo />
-      <PassesRow />
+      <OffersRow />
       <CategoriesRow />
-      <ReviewsRow />
+      <FeaturedGyms />
+      <WidePromo />
+      <HireTrainer />
+      <PassesRow />
       <Footer />
     </div>
   );

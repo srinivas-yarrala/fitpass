@@ -4,7 +4,7 @@ import { Home, MapPin, Dumbbell, LineChart, QrCode } from "lucide-react";
 const tabs = [
   { to: "/", label: "Home", icon: Home },
   { to: "/gyms", label: "Gyms", icon: MapPin },
-  { to: "/log", label: "Diet", icon: Dumbbell },
+  { to: "/diet-bot", label: "Diet", icon: Dumbbell },
   { to: "/progress", label: "Tracker", icon: LineChart },
   { to: "/check-in", label: "Check-in", icon: QrCode },
 ];
