@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+# FitPass
 
-## Project info
+A modern fitness platform built with Next.js and TypeScript, following atomic design principles.
 
-**URL**: https://lovable.dev/projects/d638b853-be45-4af6-807c-301d625693cb
+## Project Structure
 
-## How can I edit this code?
+```
+fitpass/
+├── frontend/          # Next.js frontend application
+├── backend/           # Express.js backend API
+└── README.md          # This file
+```
 
-There are several ways of editing your application.
+## Quick Start
 
-**Use Lovable**
+### Frontend
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d638b853-be45-4af6-807c-301d625693cb) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit http://localhost:3000
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Backend
 
-**Use GitHub Codespaces**
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Backend runs on http://localhost:3001
 
-## What technologies are used for this project?
+## Architecture
 
-This project is built with:
+### Frontend
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Design System**: Atomic Design (atoms, molecules, organisms, templates)
+- **UI Components**: shadcn/ui
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Backend
+- **Framework**: Express.js
+- **Language**: TypeScript
+- **Structure**: MVC pattern with routes, controllers, models
 
-## How can I deploy this project?
+## Features
 
-Simply open [Lovable](https://lovable.dev/projects/d638b853-be45-4af6-807c-301d625693cb) and click on Share -> Publish.
+- 🏋️ Gym discovery and mapping
+- 🎫 Flexible pass system
+- ✅ QR code check-in
+- 📊 Workout logging and progress tracking
+- 🤖 AI-powered diet assistant
+- 🎨 Modern, responsive UI
 
-## Can I connect a custom domain to my Lovable project?
+## Development
 
-Yes, you can!
+### Frontend Structure
+```
+frontend/src/
+├── app/              # Next.js pages (App Router)
+├── components/       # React components (atomic design)
+│   ├── atoms/
+│   ├── molecules/
+│   ├── organisms/
+│   └── templates/
+├── lib/              # Utilities
+├── hooks/            # Custom hooks
+└── types/            # TypeScript types
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Backend Structure
+```
+backend/src/
+├── routes/           # API routes
+├── controllers/       # Route handlers
+├── models/            # Data models
+├── middleware/        # Express middleware
+└── utils/            # Utility functions
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+MIT
