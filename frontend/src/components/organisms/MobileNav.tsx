@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, Dumbbell, LineChart, QrCode } from "lucide-react";
+import { Home, MapPin, GraduationCap, ShoppingBag, LineChart } from "lucide-react";
 
 const tabs = [
   { href: "/", label: "Home", icon: Home },
   { href: "/gyms", label: "Gyms", icon: MapPin },
-  { href: "/diet-bot", label: "Diet", icon: Dumbbell },
-  { href: "/progress", label: "Tracker", icon: LineChart },
-  { href: "/check-in", label: "Check-in", icon: QrCode },
+  { href: "/passes", label: "Training", icon: GraduationCap },
+  { href: "/cart", label: "Shop", icon: ShoppingBag },
+  { href: "/progress", label: "Health", icon: LineChart },
 ];
 
 export const MobileNav = () => {

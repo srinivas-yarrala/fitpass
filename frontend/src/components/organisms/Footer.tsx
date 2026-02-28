@@ -1,3 +1,5 @@
+"use client";
+
 import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
 
 export const Footer = () => {

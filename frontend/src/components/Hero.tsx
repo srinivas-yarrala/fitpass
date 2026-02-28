@@ -57,7 +57,7 @@ export const Hero = () => {
           <div className="relative animate-in fade-in slide-in-from-right duration-700 delay-200">
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               <img
-                src={heroImage}
+                src={heroImage.src}
                 alt="Fitness trainer in action"
                 className="w-full h-full object-cover"
               />

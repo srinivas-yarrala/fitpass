@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { User, MapPin, Sparkles } from "lucide-react";
+import { User, MapPin, Sparkles, QrCode, ShoppingCart } from "lucide-react";
 
 export const Header = () => {
   return (
@@ -20,22 +22,38 @@ export const Header = () => {
             <Link href="/gyms" className="text-sm font-semibold hover:text-primary transition-colors">
               GYMS
             </Link>
-            <Link href="/diet-bot" className="text-sm font-semibold hover:text-primary transition-colors">
-              DIET
+            <Link href="/passes" className="text-sm font-semibold hover:text-primary transition-colors">
+              TRAINING
+            </Link>
+            <Link href="/cart" className="text-sm font-semibold hover:text-primary transition-colors">
+              SHOP
             </Link>
             <Link href="/progress" className="text-sm font-semibold hover:text-primary transition-colors">
-              TRACKER
+              HEALTH
             </Link>
           </nav>
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-3">
             <Link href="/passes">
-              <Button size="sm" variant="ghost" className="h-8 px-0 rounded-full text-foreground/90 hover:text-foreground">
-                <span className="relative inline-block pr-2.5">
+              <Button size="sm" variant="ghost" className="h-8 px-3 rounded-full text-foreground/90 hover:text-foreground">
+                <span className="relative inline-block">
                   Get pass
-                  <Sparkles size={8} className="absolute -top-0.5 -right-0.5 text-yellow-400" />
+                  <Sparkles size={10} className="absolute -top-1 -right-2 text-yellow-400" />
                 </span>
+              </Button>
+            </Link>
+            <Link href="/cart">
+              <Button size="icon" variant="ghost" aria-label="Cart" className="rounded-full relative">
+                <ShoppingCart size={18} />
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                  4
+                </span>
+              </Button>
+            </Link>
+            <Link href="/check-in">
+              <Button size="icon" variant="ghost" aria-label="Check-in" className="rounded-full">
+                <QrCode size={18} />
               </Button>
             </Link>
             <Button size="icon" variant="ghost" aria-label="Account" className="rounded-full">
@@ -48,19 +66,21 @@ export const Header = () => {
 
           {/* Mobile CTA */}
           <div className="md:hidden flex items-center gap-2">
-            <Link href="/passes">
-              <Button size="sm" variant="ghost" className="h-8 px-0 rounded-full text-foreground/90 hover:text-foreground">
-                <span className="relative inline-block pr-2.5">
-                  Get pass
-                  <Sparkles size={8} className="absolute -top-0.5 -right-0.5 text-yellow-400" />
+            <Link href="/cart">
+              <Button size="icon" variant="ghost" aria-label="Cart" className="rounded-full relative">
+                <ShoppingCart size={18} />
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                  4
                 </span>
+              </Button>
+            </Link>
+            <Link href="/check-in">
+              <Button size="icon" variant="ghost" aria-label="Check-in" className="rounded-full">
+                <QrCode size={18} />
               </Button>
             </Link>
             <Button size="icon" variant="ghost" aria-label="Account" className="rounded-full">
               <User size={18} />
-            </Button>
-            <Button size="icon" variant="ghost" aria-label="Location" className="rounded-full text-primary border border-border">
-              <MapPin size={18} />
             </Button>
           </div>
         </div>

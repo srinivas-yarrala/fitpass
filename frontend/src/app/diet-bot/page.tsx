@@ -156,6 +156,7 @@ const DietBot = () => {
           </div>
         </Card>
       </div>
+      </div>
       <MobileNav />
     </div>
   );

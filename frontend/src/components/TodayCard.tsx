@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dumbbell } from "lucide-react";
-import { Link } from "next/link";
+import Link from "next/link";
 
 export const TodayCard = () => {
   return (

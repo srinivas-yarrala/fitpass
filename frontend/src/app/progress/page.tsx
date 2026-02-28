@@ -19,14 +19,68 @@ import { Button } from "@/components/ui/button";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { LayoutDashboard, Dumbbell, UtensilsCrossed, Activity, Link, Bot, Send } from "lucide-react";
+
+type Message = {
+  id: string;
+  author: "bot" | "user";
+  text: string;
+};
 
 const Progress = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
   // Calorie counter state
   const [dailyTarget, setDailyTarget] = useState<number>(2200);
   const [todaysIntake, setTodaysIntake] = useState<number>(0);
   const [addCalories, setAddCalories] = useState<number>(0);
+
+  // Diet Bot state
+  const botName = "Coach NutriSpark";
+  const [step, setStep] = useState<number>(0);
+  const [messages, setMessages] = useState<Message[]>([
+    { id: "m1", author: "bot", text: `Hey, I'm ${botName} ✨ I'll craft a tasty, goal‑based diet plan for you.` },
+    { id: "m2", author: "bot", text: "First up — what are your eating habits?" },
+  ]);
+  const [quickReplies, setQuickReplies] = useState<string[]>(["Vegetarian", "Non‑vegetarian", "Vegan"]);
+  const [input, setInput] = useState<string>("");
+
+  const advance = (choice: string) => {
+    const nextMessages: Message[] = [];
+    if (step === 0) {
+      nextMessages.push({ id: crypto.randomUUID(), author: "user", text: choice });
+      nextMessages.push({ id: crypto.randomUUID(), author: "bot", text: "Nice! How many meals do you prefer in a day?" });
+      setQuickReplies(["2 meals", "3 meals", "4 meals", "5 meals"]);
+      setStep(1);
+    } else if (step === 1) {
+      nextMessages.push({ id: crypto.randomUUID(), author: "user", text: choice });
+      nextMessages.push({ id: crypto.randomUUID(), author: "bot", text: "How intense are your workouts weekly?" });
+      setQuickReplies(["Light", "Moderate", "Intense"]);
+      setStep(2);
+    } else if (step === 2) {
+      nextMessages.push({ id: crypto.randomUUID(), author: "user", text: choice });
+      nextMessages.push({ id: crypto.randomUUID(), author: "bot", text: "What's your primary goal right now?" });
+      setQuickReplies(["Lose fat", "Maintain", "Gain muscle"]);
+      setStep(3);
+    } else if (step === 3) {
+      nextMessages.push({ id: crypto.randomUUID(), author: "user", text: choice });
+      nextMessages.push({ id: crypto.randomUUID(), author: "bot", text: "Sweet. I'll crunch the numbers and prep your macros and a sample day menu." });
+      nextMessages.push({ id: crypto.randomUUID(), author: "bot", text: "Ready to see your plan? Tap Generate below." });
+      setQuickReplies(["Generate my plan"]);
+      setStep(4);
+    } else if (step === 4) {
+      nextMessages.push({ id: crypto.randomUUID(), author: "user", text: choice });
+      nextMessages.push({
+        id: crypto.randomUUID(),
+        author: "bot",
+        text: "🎉 Your plan is ready!\n\n**Macros:** 2200 kcal • 180g protein • 220g carbs • 70g fat\n\n**Sample Day:**\n• Breakfast – Oats + Eggs\n• Lunch – Grilled Chicken + Rice\n• Snack – Protein Shake\n• Dinner – Salmon + Veggies\n\nAdapt as you need — consistency beats perfection!",
+      });
+      setQuickReplies([]);
+      setStep(5);
+    }
+    setMessages((prev) => [...prev, ...nextMessages]);
+  };
 
   const calorieProgress = useMemo(() => {
     const pct = Math.min(100, Math.max(0, (todaysIntake / Math.max(1, dailyTarget)) * 100));
@@ -59,21 +113,58 @@ const Progress = () => {
           Your Fitness Command Center
         </div>
         <h1 className="mt-4 text-4xl font-extrabold text-white sm:text-5xl">
-          Track Your Progress
+          Health Dashboard
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          Sync your fitness tracker, plan workouts, monitor calories, and understand your body metrics — all in one place.
+          Track your workouts, manage nutrition, monitor calories, and understand your body metrics — all in one place.
         </p>
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row px-4 sm:px-0">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="workouts">Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
-            <TabsTrigger value="metrics">Metrics</TabsTrigger>
-            <TabsTrigger value="integrations">Integrations</TabsTrigger>
+        <div className="mb-6 overflow-x-auto no-scrollbar">
+          <TabsList className="inline-flex w-auto h-auto gap-1 bg-transparent p-0">
+            <TabsTrigger 
+              value="overview" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <LayoutDashboard className="h-5 w-5" />
+              <span className="text-xs">Overview</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="diet" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <Bot className="h-5 w-5" />
+              <span className="text-xs">Diet AI</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="workouts" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <Dumbbell className="h-5 w-5" />
+              <span className="text-xs">Workouts</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="nutrition" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <UtensilsCrossed className="h-5 w-5" />
+              <span className="text-xs">Nutrition</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="metrics" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <Activity className="h-5 w-5" />
+              <span className="text-xs">Metrics</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="integrations" 
+              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            >
+              <Link className="h-5 w-5" />
+              <span className="text-xs">Sync</span>
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -144,6 +235,90 @@ const Progress = () => {
           </div>
         </TabsContent>
 
+        {/* Diet AI */}
+        <TabsContent value="diet" className="mt-6">
+          <Card className="max-w-2xl mx-auto">
+            <CardContent className="p-0">
+              {/* Chat Container */}
+              <div className="flex flex-col h-[600px]">
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {messages.map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.author === "user" ? "justify-end" : "justify-start"}`}
+                    >
+                      {msg.author === "bot" && (
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                          <Bot size={18} className="text-primary" />
+                        </div>
+                      )}
+                      <div
+                        className={`max-w-[75%] rounded-2xl px-4 py-2 ${
+                          msg.author === "user"
+                            ? "bg-primary text-black"
+                            : "bg-muted text-foreground"
+                        }`}
+                      >
+                        <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Quick Replies */}
+                {quickReplies.length > 0 && (
+                  <div className="border-t p-4">
+                    <div className="flex flex-wrap gap-2">
+                      {quickReplies.map((reply) => (
+                        <Button
+                          key={reply}
+                          variant="outline"
+                          size="sm"
+                          onClick={() => advance(reply)}
+                          className="rounded-full"
+                        >
+                          {reply}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Input Bar */}
+                <div className="border-t p-4">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Type a message..."
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter" && input.trim()) {
+                          setMessages([...messages, { id: crypto.randomUUID(), author: "user", text: input }]);
+                          setInput("");
+                        }
+                      }}
+                      className="flex-1"
+                    />
+                    <Button
+                      size="icon"
+                      className="bg-primary hover:bg-primary/90"
+                      onClick={() => {
+                        if (input.trim()) {
+                          setMessages([...messages, { id: crypto.randomUUID(), author: "user", text: input }]);
+                          setInput("");
+                        }
+                      }}
+                    >
+                      <Send size={18} />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Workouts */}
         <TabsContent value="workouts" className="mt-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -152,17 +327,65 @@ const Progress = () => {
                 <CardTitle>Workout Calendar</CardTitle>
                 <CardDescription>Select a date to plan or review</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
+                {/* Year and Month Selector */}
+                <div className="flex gap-2 items-center justify-center">
+                  <div className="flex-1">
+                    <Label htmlFor="year-select" className="text-xs">Year</Label>
+                    <select
+                      id="year-select"
+                      value={currentMonth.getFullYear()}
+                      onChange={(e) => {
+                        const newDate = new Date(currentMonth);
+                        newDate.setFullYear(parseInt(e.target.value));
+                        setCurrentMonth(newDate);
+                      }}
+                      className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
+                    >
+                      {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - 5 + i).map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex-1">
+                    <Label htmlFor="month-select" className="text-xs">Month</Label>
+                    <select
+                      id="month-select"
+                      value={currentMonth.getMonth()}
+                      onChange={(e) => {
+                        const newDate = new Date(currentMonth);
+                        newDate.setMonth(parseInt(e.target.value));
+                        setCurrentMonth(newDate);
+                      }}
+                      className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
+                    >
+                      {[
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                      ].map((month, index) => (
+                        <option key={index} value={index}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Calendar */}
                 <Calendar
                   mode="single"
                   selected={selectedDate}
                   onSelect={setSelectedDate}
+                  month={currentMonth}
+                  onMonthChange={setCurrentMonth}
                   className="rounded-md border"
                 />
               </CardContent>
               <CardFooter className="justify-between">
                 <div className="text-sm text-muted-foreground">
-                  Selected: {selectedDate?.toDateString()}
+                  Selected: {selectedDate?.toDateString() || "None"}
                 </div>
                 <Button variant="outline" className="h-12">Add workout</Button>
               </CardFooter>
