@@ -82,6 +82,17 @@ backend/src/
 └── utils/            # Utility functions
 ```
 
+## Single deploy (no separate backend)
+
+All backend behavior runs inside the frontend app via Next.js API routes:
+
+- **`/api/health`** – health check
+- **`/api/gyms`** – list gyms
+- **`/api/passes`** – list passes/classes
+- **`/api/check-in`** – POST check-in
+
+Use the **frontend** only for deployment (e.g. Vercel with Root Directory `frontend`). The `backend/` folder is optional for local Express development.
+
 ## Deploy on Vercel
 
 This repo is a **monorepo**: the Next.js app lives in `frontend/`, not at the repo root. So Vercel must build from the `frontend` folder.

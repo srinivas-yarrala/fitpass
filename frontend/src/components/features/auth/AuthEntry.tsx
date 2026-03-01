@@ -17,6 +17,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
+// Dev OTP — works without backend. Use 4444 to sign in/sign up.
 const DEV_OTP = "4444";
 
 export function AuthEntry() {

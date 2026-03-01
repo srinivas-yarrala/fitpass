@@ -4,12 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, Star, Dumbbell, Clock, Wifi, Sparkles, Navigation, ShowerHead, Wind, Users, Car, Waves } from "lucide-react";
-import { useState } from "react";
+import { Search, MapPin, Star, Dumbbell, Wifi, Sparkles, Navigation, ShowerHead, Wind, Users, Waves } from "lucide-react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/organisms/Header";
 import MobileNav from "@/components/organisms/MobileNav";
+import { getGyms, type GymItem } from "@/lib/api";
 import gym1 from "@/assets/gym-cards/360_F_317724775_qHtWjnT8YbRdFNIuq5PWsSYypRhOmalS.jpg";
 import gym2 from "@/assets/gym-cards/depositphotos_148533399-stock-photo-modern-gym-with-dumbbell-set.jpg";
 import gym3 from "@/assets/gym-cards/gym-with-indoor-cycling-equipment_23-2149270210.jpg";
@@ -20,19 +21,26 @@ import gym7 from "@/assets/gym-cards/photo-1571902943202-507ec2618e8f.jpeg";
 import gym8 from "@/assets/gym-cards/within-gym-modern-fitness-equipment-600nw-1471750145.webp";
 
 const gymCardImages = [gym1, gym2, gym3, gym4, gym5, gym6, gym7, gym8];
+const amenityIcons = [Dumbbell, Wifi, ShowerHead, Wind, Users, Waves];
 
-const gyms = new Array(12).fill(null).map((_, i) => ({
-  id: i,
-  name: `FitZone ${i + 1}`,
-  address: ["Downtown", "City Center", "Westside", "Eastside", "Uptown"][i % 5],
-  distance: `${(((i + 1) * 0.4)).toFixed(1)} km`,
-  rating: (4 + ((i % 5) / 10)).toFixed(1),
-  hourlyPrice: 99 + (i % 3) * 20,
-  weeklyPrice: 599 + (i % 4) * 100,
-  monthlyPrice: 1999 + (i % 5) * 200,
-  featured: i % 4 === 0,
-  amenities: [Dumbbell, Wifi, ShowerHead, Wind, Users, Waves].slice(0, 4 + (i % 3)), // Equipment, WiFi, Showers, AC, Training, Pool
-}));
+function addAmenities(gym: GymItem): GymItem & { amenities: typeof amenityIcons } {
+  const slice = amenityIcons.slice(0, 4 + (gym.id % 3));
+  return { ...gym, amenities: slice };
+}
+
+const fallbackGyms: (GymItem & { amenities: typeof amenityIcons })[] = new Array(12).fill(null).map((_, i) =>
+  addAmenities({
+    id: i,
+    name: `FitZone ${i + 1}`,
+    address: ["Downtown", "City Center", "Westside", "Eastside", "Uptown"][i % 5],
+    distance: `${((i + 1) * 0.4).toFixed(1)} km`,
+    rating: (4 + (i % 5) / 10).toFixed(1),
+    hourlyPrice: 99 + (i % 3) * 20,
+    weeklyPrice: 599 + (i % 4) * 100,
+    monthlyPrice: 1999 + (i % 5) * 200,
+    featured: i % 4 === 0,
+  })
+);
 
 const GymCard = ({ 
   gym 
@@ -136,6 +144,13 @@ const GymCard = ({
 export default function GymsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<"all" | "featured" | "nearby">("all");
+  const [gyms, setGyms] = useState<(GymItem & { amenities: typeof amenityIcons })[]>(fallbackGyms);
+
+  useEffect(() => {
+    getGyms()
+      .then((list) => setGyms(list.map(addAmenities)))
+      .catch(() => {});
+  }, []);
 
   const filteredGyms = gyms.filter((gym) => {
     if (selectedFilter === "featured") return gym.featured;
