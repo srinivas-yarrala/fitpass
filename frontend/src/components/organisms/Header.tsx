@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { User, MapPin, Sparkles, QrCode, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 export const Header = () => {
+  const { totalQuantity } = useCart();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4 lg:px-8">
@@ -46,9 +49,11 @@ export const Header = () => {
             <Link href="/cart">
               <Button size="icon" variant="ghost" aria-label="Cart" className="rounded-full relative">
                 <ShoppingCart size={18} />
-                <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
-                  4
-                </span>
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {totalQuantity > 99 ? "99+" : totalQuantity}
+                  </span>
+                )}
               </Button>
             </Link>
             <Link href="/check-in">
@@ -69,9 +74,11 @@ export const Header = () => {
             <Link href="/cart">
               <Button size="icon" variant="ghost" aria-label="Cart" className="rounded-full relative">
                 <ShoppingCart size={18} />
-                <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
-                  4
-                </span>
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {totalQuantity > 99 ? "99+" : totalQuantity}
+                  </span>
+                )}
               </Button>
             </Link>
             <Link href="/check-in">

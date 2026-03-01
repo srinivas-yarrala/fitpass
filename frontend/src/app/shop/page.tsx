@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { Header } from "@/components/organisms/Header";
 import MobileNav from "@/components/organisms/MobileNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus, UtensilsCrossed, Dumbbell } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 const essentials = [
   {
@@ -20,7 +20,7 @@ const essentials = [
     name: "Protein Bars (12 pack)",
     subtitle: "Chocolate & peanut butter",
     price: 899,
-    image: "https://images.unsplash.com/photo-1580281657527-205ae9b2b2c2?w=400&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=400&fit=crop",
   },
   {
     id: 3,
@@ -101,8 +101,8 @@ function ProductCard({
   product,
   onAdd,
 }: {
-  product: (typeof essentials)[0];
-  onAdd: (id: number) => void;
+  product: (typeof essentials)[0] | (typeof workoutEssentials)[0];
+  onAdd: (product: (typeof essentials)[0] | (typeof workoutEssentials)[0]) => void;
 }) {
   return (
     <Card className="group overflow-hidden border border-border bg-card rounded-xl">
@@ -117,7 +117,7 @@ function ProductCard({
           <Button
             size="sm"
             className="w-full rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/90"
-            onClick={() => onAdd(product.id)}
+            onClick={() => onAdd(product)}
           >
             <Plus size={16} className="mr-1" />
             Add to cart
@@ -134,11 +134,16 @@ function ProductCard({
 }
 
 export default function ShopPage() {
-  const [, setAdded] = useState<number[]>([]);
+  const { addShopItem } = useCart();
 
-  const handleAdd = (id: number) => {
-    setAdded((prev) => [...prev, id]);
-    // TODO: wire to global cart state; cart page is only opened via header cart icon
+  const handleAdd = (product: (typeof essentials)[0] | (typeof workoutEssentials)[0]) => {
+    addShopItem({
+      id: product.id,
+      name: product.name,
+      subtitle: product.subtitle,
+      price: product.price,
+      image: product.image,
+    });
   };
 
   return (
