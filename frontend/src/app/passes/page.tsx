@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/organisms/Header";
 import MobileNav from "@/components/organisms/MobileNav";
+import HireTrainer from "@/components/organisms/HireTrainer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -164,23 +165,11 @@ export default function TrainingPage() {
       <Header />
       
       <div className="container mx-auto px-4 lg:px-8 pt-24">
-        {/* Header */}
-        <div className="mb-8">
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-            <Sparkles size={12} className="mr-1" />
-            {trainingClasses.length} Classes Available
-          </Badge>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Training Classes & Sessions</h1>
-          <p className="text-muted-foreground">
-            Join expert-led classes in Yoga, Dance, Swimming, and more
-          </p>
-        </div>
-
         {/* Search Bar */}
         <div className="relative max-w-2xl mx-auto mb-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
           <Input
-            placeholder="Search classes or instructors..."
+            placeholder="Join expert led classes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-12 pr-14 h-14 text-base rounded-full border-2 shadow-lg bg-card"
@@ -225,6 +214,9 @@ export default function TrainingPage() {
           </Button>
         </div>
 
+        {/* Hire a trainer row */}
+        <HireTrainer />
+
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-sm text-muted-foreground">
@@ -252,7 +244,7 @@ export default function TrainingPage() {
                     {/* Featured Badge */}
                     {cls.featured && (
                       <div className="absolute top-2 left-2 z-10">
-                        <Badge className="bg-[#ccff00] text-black font-semibold text-[10px] px-2 py-0.5 border-0 shadow-lg">
+                        <Badge className="bg-neo-gold text-black font-semibold text-[10px] px-2 py-0.5 border-0 shadow-lg">
                           <Sparkles size={10} className="mr-1" />
                           Hot
                         </Badge>

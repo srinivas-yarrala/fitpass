@@ -15,7 +15,7 @@ export const PassesRow = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="mb-6 text-center">
           <h3 className="text-lg font-bold inline-block">Pick one</h3>
-          <div className="mx-auto mt-1 h-0.5 w-16 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400" />
+          <div className="mx-auto mt-1 h-0.5 w-16 rounded-full bg-neo-gold" />
         </div>
         <div>
           <div className="grid grid-cols-3 gap-4">

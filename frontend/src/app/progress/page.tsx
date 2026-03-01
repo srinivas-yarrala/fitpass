@@ -112,58 +112,55 @@ const Progress = () => {
         <div className="inline-block rounded-full border border-primary/60 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
           Your Fitness Command Center
         </div>
-        <h1 className="mt-4 text-4xl font-extrabold text-white sm:text-5xl">
+        <h1 className="mt-4 text-4xl font-extrabold text-foreground sm:text-5xl">
           Health Dashboard
         </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          Track your workouts, manage nutrition, monitor calories, and understand your body metrics — all in one place.
-        </p>
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
         <div className="mb-6 overflow-x-auto no-scrollbar">
-          <TabsList className="inline-flex w-auto h-auto gap-1 bg-transparent p-0">
-            <TabsTrigger 
-              value="overview" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+          <TabsList className="inline-flex w-auto h-auto gap-1.5 rounded-2xl border border-border bg-card/60 backdrop-blur-md p-1.5">
+            <TabsTrigger
+              value="overview"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <LayoutDashboard className="h-5 w-5" />
-              <span className="text-xs">Overview</span>
+              <LayoutDashboard className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Overview</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="diet" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            <TabsTrigger
+              value="diet"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <Bot className="h-5 w-5" />
-              <span className="text-xs">Diet AI</span>
+              <Bot className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Diet AI</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="workouts" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            <TabsTrigger
+              value="workouts"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <Dumbbell className="h-5 w-5" />
-              <span className="text-xs">Workouts</span>
+              <Dumbbell className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Workouts</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="nutrition" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            <TabsTrigger
+              value="nutrition"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <UtensilsCrossed className="h-5 w-5" />
-              <span className="text-xs">Nutrition</span>
+              <UtensilsCrossed className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Nutrition</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="metrics" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            <TabsTrigger
+              value="metrics"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <Activity className="h-5 w-5" />
-              <span className="text-xs">Metrics</span>
+              <Activity className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Metrics</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="integrations" 
-              className="flex flex-col items-center gap-1.5 py-3 px-4 data-[state=active]:bg-primary/10 whitespace-nowrap"
+            <TabsTrigger
+              value="integrations"
+              className="flex flex-col items-center gap-1.5 py-3 px-5 rounded-xl text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-secondary/50 transition-all duration-200 whitespace-nowrap"
             >
-              <Link className="h-5 w-5" />
-              <span className="text-xs">Sync</span>
+              <Link className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium">Sync</span>
             </TabsTrigger>
           </TabsList>
         </div>

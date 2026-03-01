@@ -21,40 +21,56 @@ const featuredGyms = new Array(8).fill(null).map((_, i) => ({
 
 const gymCardImages = [gym1, gym2, gym3, gym4, gym5, gym6, gym7, gym8];
 
-export const FeaturedGyms = () => {
+interface FeaturedGymsProps {
+  standout?: boolean;
+}
+
+export const FeaturedGyms = ({ standout }: FeaturedGymsProps) => {
   return (
     <section className="py-8">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold">Featured gyms</h3>
-          <Link href="/gyms" className="text-sm text-primary font-semibold">See all</Link>
+          <h3 className="text-lg font-bold text-foreground">Featured gyms</h3>
+          <Link href="/gyms" className="text-sm text-primary font-semibold">
+            See all
+          </Link>
         </div>
         <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
           <div className="flex gap-4 min-w-max">
             {featuredGyms.map((g) => (
-              <Card key={g.id} className="snap-start w-64 flex-shrink-0 p-3">
-                <div className="relative aspect-video rounded-lg mb-3 overflow-hidden">
+              <Card
+                key={g.id}
+                className="snap-start w-64 flex-shrink-0 overflow-hidden border border-border bg-card rounded-xl"
+              >
+                <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={gymCardImages[g.id % gymCardImages.length]}
                     alt={g.name}
                     fill
                     className="object-cover"
                   />
-                  {/* Gold ribbon badge (top-right) */}
+                  {/* Gold ribbon at top-right edge */}
                   <div className="absolute top-0 right-0">
                     <div className="relative">
-                      <div className="px-3 py-1 bg-yellow-400 text-black text-[10px] font-semibold rounded-bl-md shadow-sm">Featured</div>
-                      <div className="absolute right-0 top-full w-0 h-0 border-l-6 border-l-transparent border-t-6 border-t-yellow-400" />
+                      <div className="px-3 py-1 bg-neo-gold text-black text-[10px] font-semibold rounded-bl-md shadow-sm">
+                        Featured
+                      </div>
+                      <div className="absolute right-0 top-full w-0 h-0 border-l-[6px] border-l-transparent border-t-[6px] border-t-neo-gold" />
                     </div>
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-background/70 backdrop-blur px-2 py-0.5 rounded-full text-[10px] border border-border inline-flex items-center gap-1"><Star size={12} className="text-yellow-500/90" />4.{(g.id % 5) + 2}</div>
+                  <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-background/90 px-2 py-1 text-[10px] font-medium text-foreground">
+                    <Star size={12} className="text-primary" />
+                    4.{(g.id % 5) + 2}
+                  </div>
                 </div>
-                <div className="font-semibold truncate">{g.name}</div>
-                <div className="text-xs text-muted-foreground mb-2">{g.distance} away</div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2 opacity-70">
-                  <Dumbbell size={14} />
-                  <ShowerHead size={14} />
-                  <Waves size={14} />
+                <div className="p-3">
+                  <div className="font-semibold text-foreground truncate">{g.name}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{g.distance} away</div>
+                  <div className="flex items-center gap-3 mt-2 text-primary">
+                    <Dumbbell size={16} />
+                    <ShowerHead size={16} />
+                    <Waves size={16} />
+                  </div>
                 </div>
               </Card>
             ))}
@@ -66,5 +82,3 @@ export const FeaturedGyms = () => {
 };
 
 export default FeaturedGyms;
-
-

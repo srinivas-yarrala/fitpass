@@ -91,71 +91,85 @@ const DietBot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-0 md:pb-0">
       <Header />
-      <div className="relative min-h-screen bg-background pb-24 overflow-x-hidden">
-      {/* background accents */}
-      <div className="pointer-events-none absolute -top-10 right-0 translate-x-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 -translate-x-1/4 w-72 h-72 rounded-full bg-yellow-500/10 blur-3xl" />
+      <div className="relative min-h-screen bg-background overflow-x-hidden">
+        {/* background accents */}
+        <div className="pointer-events-none absolute -top-10 right-0 translate-x-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 -translate-x-1/4 w-72 h-72 rounded-full bg-yellow-500/10 blur-3xl" />
 
-      <div className="container mx-auto px-4 lg:px-8 py-10 max-w-3xl">
-        {/* Chat header strip centered */}
-        <div className="mb-4 text-center">
-          <div className="inline-flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary">
-              <Bot size={16} />
-            </span>
-            <div className="font-semibold">{botName}</div>
-            <Sparkles size={14} className="text-yellow-400" />
-          </div>
-        </div>
-
-        <Card className="p-4 md:p-6 relative">
-          {/* Messages */}
-          <div className="space-y-3">
-            {messages.map((m) => (
-              <div key={m.id} className={`flex ${m.author === "bot" ? "justify-start" : "justify-end"}`}>
-                <div className={`${m.author === "bot" ? "bg-secondary text-foreground" : "bg-primary text-primary-foreground"} max-w-[80%] px-3 py-2 rounded-2xl ${m.author === "bot" ? "rounded-tl-sm" : "rounded-tr-sm"}`}>
-                  {m.text}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Quick replies */}
-          {quickReplies.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
-              {quickReplies.map((qr) => {
-                const Icon = iconFor(qr);
-                return (
-                  <Button key={qr} size="sm" variant="secondary" className="rounded-full inline-flex items-center gap-1.5" onClick={() => advance(qr)}>
-                    <Icon size={14} />
-                    <span>{qr}</span>
-                  </Button>
-                );
-              })}
+        <div className="container mx-auto px-4 lg:px-8 pt-6 pb-20 md:pb-6 max-w-3xl">
+          {/* Chat header strip — stylish */}
+          <div className="mb-3 text-center">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-card/80 backdrop-blur-md border border-border shadow-md">
+              <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-primary/20 to-neo-gold/20 text-primary ring-2 ring-primary/30">
+                <Bot size={18} />
+              </span>
+              <span className="font-semibold text-foreground">{botName}</span>
+              <Sparkles size={14} className="text-neo-gold" />
             </div>
-          )}
-
-          {/* Input */}
-          <div className="mt-4 relative">
-            <Input
-              placeholder="Type a message…"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && send()}
-              className="h-12 pl-4 pr-12 rounded-full bg-background/60 backdrop-blur-md border-border"
-            />
-            <button
-              aria-label="Send"
-              onClick={send}
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center active:scale-95"
-            >
-              <Send size={16} />
-            </button>
           </div>
-        </Card>
-      </div>
+
+          {/* Chat window: fixed height so bottom stays above nav; messages scroll */}
+          <Card className="flex flex-col overflow-hidden border-border bg-card/60 backdrop-blur-md shadow-lg rounded-2xl border max-h-[calc(100vh-14rem)] md:max-h-[calc(100vh-10rem)]">
+            {/* Messages — scrollable */}
+            <div className="flex-1 min-h-0 overflow-y-auto p-4 md:p-5 space-y-3 overscroll-contain">
+              {messages.map((m) => (
+                <div key={m.id} className={`flex ${m.author === "bot" ? "justify-start" : "justify-end"}`}>
+                  <div
+                    className={
+                      m.author === "bot"
+                        ? "bg-muted/80 text-foreground border border-border/50 max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tl-md shadow-sm"
+                        : "bg-primary text-primary-foreground max-w-[85%] px-4 py-2.5 rounded-2xl rounded-tr-md shadow-sm"
+                    }
+                  >
+                    {m.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom block: quick replies + input — stays visible above nav */}
+            <div className="flex-shrink-0 p-4 pt-0 md:p-5 md:pt-0 space-y-3 border-t border-border/50 bg-background/30">
+              {quickReplies.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {quickReplies.map((qr) => {
+                    const Icon = iconFor(qr);
+                    return (
+                      <Button
+                        key={qr}
+                        size="sm"
+                        variant="secondary"
+                        className="rounded-full inline-flex items-center gap-1.5 border border-border/50 bg-muted/50 hover:bg-muted hover:border-primary/30 text-foreground"
+                        onClick={() => advance(qr)}
+                      >
+                        <Icon size={14} className="opacity-80" />
+                        <span>{qr}</span>
+                      </Button>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="relative">
+                <Input
+                  placeholder="Type a message…"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && send()}
+                  className="h-11 pl-4 pr-12 rounded-full bg-background border-border focus-visible:ring-primary/50"
+                />
+                <button
+                  aria-label="Send"
+                  onClick={send}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center active:scale-95 hover:opacity-90 transition-opacity"
+                >
+                  <Send size={16} />
+                </button>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
       <MobileNav />
     </div>

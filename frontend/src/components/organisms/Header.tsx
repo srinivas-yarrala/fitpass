@@ -25,7 +25,7 @@ export const Header = () => {
             <Link href="/passes" className="text-sm font-semibold hover:text-primary transition-colors">
               TRAINING
             </Link>
-            <Link href="/cart" className="text-sm font-semibold hover:text-primary transition-colors">
+            <Link href="/shop" className="text-sm font-semibold hover:text-primary transition-colors">
               SHOP
             </Link>
             <Link href="/progress" className="text-sm font-semibold hover:text-primary transition-colors">
@@ -39,7 +39,7 @@ export const Header = () => {
               <Button size="sm" variant="ghost" className="h-8 px-3 rounded-full text-foreground/90 hover:text-foreground">
                 <span className="relative inline-block">
                   Get pass
-                  <Sparkles size={10} className="absolute -top-1 -right-2 text-yellow-400" />
+                  <Sparkles size={10} className="absolute -top-1 -right-2 text-neo-gold" />
                 </span>
               </Button>
             </Link>

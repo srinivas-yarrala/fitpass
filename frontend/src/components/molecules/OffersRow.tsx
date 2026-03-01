@@ -14,8 +14,9 @@ export const OffersRow = () => {
   return (
     <section className="py-8">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold">Offers for you</h3>
+        <div className="mb-6 text-center">
+          <h3 className="text-lg font-bold inline-block">Offers for you</h3>
+          <div className="mx-auto mt-1 h-0.5 w-16 rounded-full bg-neo-gold" />
         </div>
         <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
           <div className="flex gap-4 min-w-max">

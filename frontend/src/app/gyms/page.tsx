@@ -74,7 +74,7 @@ const GymCard = ({
           {/* Featured Badge */}
           {gym.featured && (
             <div className="absolute top-2 left-2 z-10">
-              <Badge className="bg-[#ccff00] text-black font-semibold text-[10px] px-2 py-0.5 border-0 shadow-lg">
+              <Badge className="bg-neo-gold text-black font-semibold text-[10px] px-2 py-0.5 border-0 shadow-lg">
                 <Sparkles size={10} className="mr-1" />
                 Featured
               </Badge>
@@ -206,6 +206,9 @@ export default function GymsPage() {
             Nearby
           </Button>
         </div>
+
+        {/* Featured gyms — horizontal scroll, standout on gyms page */}
+        <FeaturedGyms standout />
 
         {/* Results Count */}
         <div className="mb-6">
