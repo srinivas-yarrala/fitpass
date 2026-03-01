@@ -56,14 +56,25 @@ export function AuthEntry() {
       return;
     }
     setVerifying(true);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("fitpass.userPhone", digits);
-      if (mode === "signup") {
-        localStorage.setItem("fitpass.isNewUser", "true");
-      }
-    }
-    setVerifying(false);
-    router.replace("/");
+    // Defer so "Verifying…" paints, then save and redirect (no backend call).
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("fitpass.userPhone", digits);
+          if (mode === "signup") {
+            localStorage.setItem("fitpass.isNewUser", "true");
+          }
+          const hasOnboarding = Boolean(
+            localStorage.getItem("fitpass.preferredGender") && localStorage.getItem("fitpass.userAge")
+          );
+          setVerifying(false);
+          router.replace(hasOnboarding ? "/" : "/onboarding");
+          return;
+        }
+        setVerifying(false);
+        router.replace("/");
+      });
+    });
   };
 
   const handleChangeNumber = () => {
