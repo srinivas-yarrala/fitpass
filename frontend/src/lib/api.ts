@@ -16,7 +16,9 @@ export type GymItem = {
   id: number;
   name: string;
   address: string;
-  distance: string;
+  lat: number;
+  lng: number;
+  distance?: string; // computed client-side from user location when available
   rating: string;
   hourlyPrice: number;
   weeklyPrice: number;
