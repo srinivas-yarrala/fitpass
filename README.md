@@ -82,6 +82,17 @@ backend/src/
 └── utils/            # Utility functions
 ```
 
+## Deploy on Vercel
+
+This repo is a **monorepo**: the Next.js app lives in `frontend/`, not at the repo root. So Vercel must build from the `frontend` folder.
+
+1. In Vercel: **Project → Settings → General**.
+2. Under **Root Directory**, set it to **`frontend`** (or `./frontend`).
+3. **Framework Preset** should be **Next.js** (Vercel will detect it once root is correct).
+4. Save and **Redeploy**.
+
+After that, Vercel will use `frontend/package.json`, run `npm run build`, and serve the App Router app (`frontend/src/app/page.tsx`).
+
 ## License
 
 MIT
