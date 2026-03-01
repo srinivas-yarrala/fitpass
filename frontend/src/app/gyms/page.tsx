@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/organisms/Header";
 import MobileNav from "@/components/organisms/MobileNav";
+import FeaturedGyms from "@/components/organisms/FeaturedGyms";
 import { getGyms, type GymItem } from "@/lib/api";
 import gym1 from "@/assets/gym-cards/360_F_317724775_qHtWjnT8YbRdFNIuq5PWsSYypRhOmalS.jpg";
 import gym2 from "@/assets/gym-cards/depositphotos_148533399-stock-photo-modern-gym-with-dumbbell-set.jpg";
